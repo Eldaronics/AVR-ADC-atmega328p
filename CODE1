@@ -1,0 +1,29 @@
+/*
+ * GccApplication3.c
+ *
+ * Created: 2/13/2019 9:00:46 PM
+ * Author : Eldar
+ */ 
+F_CPU 16000000UL;
+#include <avr/io.h>
+int input1 = 0;
+void adc_init(void){
+	ADCSRA |= 0xC7;
+	ADMUX |= (1<<REFS0);
+}
+uint16_t read_adc(uint8_t channel)
+{
+	ADMUX &= 0xF0;
+	ADMUX |= channel;
+	ADCSRA |= (1<<ADSC);
+	while(ADCSRA & (1<<ADSC));
+	return ADCW;
+}
+int main(void)
+{
+	void adc_init(void);
+	 read_adc();
+    while (1) 
+    {
+    }
+}
